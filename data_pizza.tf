@@ -125,6 +125,7 @@ sudo snap install docker
 export POSTGRES_USER=${var.CLOUD_DB_USERNAME}
 export POSTGRES_PASSWORD=${var.CLOUD_DB_PASSWORD}
 export POSTGRES_DATABASE=${var.SQL_NAME}
+export POSTGRES_HOST=${google_sql_database_instance.instance_data_pizza.private_ip_address}
 git clone https://github.com/giandv/back-end-datapizza.git
 cd back-end-datapizza
 CHECK_DATABASE=$(psql -U postgres -c '\l' | grep datapizza | wc -l)

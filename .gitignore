@@ -1,0 +1,8 @@
+.metadata
+.DS_Store
+*.hcl
+*.terraform
+.idea
+*.tfstate
+*.tfstate.backup
+*.json

@@ -122,8 +122,8 @@ resource "google_compute_instance_template" "compute_instance_template_data_pizz
 sudo apt-get update -y
 sudo snap install docker
 export POSTGRES_USER=${var.CLOUD_DB_USERNAME}
-export POSTGRES_PASSWORD=${var.CLOUD_DB_DATABASE}
-export POSTGRES_DATABASE=${var.CLOUD_DB_DATABASE}
+export POSTGRES_PASSWORD=${var.CLOUD_DB_PASSWORD}
+export POSTGRES_DATABASE=${var.SQL_NAME}
 git clone https://github.com/giandv/back-end-datapizza.git
 cd back-end-datapizza
 CHECK_DATABASE=$(psql -U postgres -c '\l' | grep datapizza | wc -l)

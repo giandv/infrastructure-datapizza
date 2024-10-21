@@ -4,10 +4,6 @@ variable "APP_SECURE_PORT" {
   description = "App secure port"
   default     = "9091"
 }
-variable "CLOUD_DB_DATABASE" {
-  type        = string
-  description = "Postgress database"
-}
 variable "CLOUD_DB_PASSWORD" {
   type        = string
   description = "Postgress user password"

@@ -120,9 +120,20 @@ resource "google_compute_instance_template" "compute_instance_template_data_pizz
 
   metadata_startup_script = <<EOF
 sudo apt-get update -y
-envsubst < ./database.tpl > ./database.sql
+sudo snap install docker
+export POSTGRES_USER=${var.CLOUD_DB_USERNAME}
+export POSTGRES_PASSWORD=${var.CLOUD_DB_DATABASE}
+export POSTGRES_DATABASE=${var.CLOUD_DB_DATABASE}
+git clone https://github.com/giandv/back-end-datapizza.git
+cd back-end-datapizza
+CHECK_DATABASE=$(psql -U postgres -c '\l' | grep datapizza | wc -l)
+if [[ "$CHECK_DATABASE" -eq "0" ]] ; then
+  envsubst < ./database.tpl > ./database.sql
+  \i ./database.sql
+fi
 envsubst < ./docker-compose.tpl > ./docker-compose.yml
-sudo apt-get install git docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo docker-compose up --build -d
+sudo ufw allow 8000;
 EOF
 
 }

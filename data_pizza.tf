@@ -130,12 +130,14 @@ cd back-end-datapizza
 CHECK_DATABASE=$(psql -U postgres -c '\l' | grep datapizza | wc -l)
 if [[ "$CHECK_DATABASE" -eq "0" ]] ; then
   envsubst < ./database.tpl > ./database.sql
-  \i ./database.sql
+  $(psql -h ${google_sql_database_instance.instance_data_pizza.private_ip_address} -U ${var.CLOUD_DB_USERNAME} -W -d ${var.SQL_NAME} -f database.sql)
 fi
 envsubst < ./docker-compose.tpl > ./docker-compose.yml
 sudo docker-compose up --build -d
 sudo ufw allow 8000;
 EOF
+
+  depends_on = [google_sql_database_instance.instance_data_pizza]
 
 }
 

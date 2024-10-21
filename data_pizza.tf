@@ -120,6 +120,7 @@ resource "google_compute_instance_template" "compute_instance_template_data_pizz
 
   metadata_startup_script = <<EOF
 sudo apt-get update -y
+sudo apt-get install -y postgresql-client
 sudo snap install docker
 export POSTGRES_USER=${var.CLOUD_DB_USERNAME}
 export POSTGRES_PASSWORD=${var.CLOUD_DB_PASSWORD}
